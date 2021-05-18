@@ -1,0 +1,64 @@
+@using System.Text
+@model IEnumerable<StudentManagementSystem.Models.Group>
+@{
+    ViewData["Title"] = "Index";
+}
+<img src="https://media-exp1.licdn.com/dms/image/C4E0BAQGRi6OIlNQG8Q/company-logo_200_200/0/1519856519357?e=2159024400&v=beta&t=oi6HQpzoeTKA082s-8Ft75vGTvAkEp4VHRyMLeOHXoo" alt="">
+<h4>Student Register</h4>
+<hr/>
+
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Students)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Students.Count)
+        </th>
+        <th>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+                <a asp-action="AddOrEdit"><i class="far fa-plus-square"></i> добавить</a>
+            </td>
+            <td>
+                @foreach (var student in item.Students)
+                {
+                    var studStr = student.ToString();
+                    @Html.DisplayFor(modelItem => studStr)
+                    <a asp-action="AddOrEdit" asp-route-id="@student.StudentId"><i class="far fa-plus-square"></i> редактировать</a>
+                    <a asp-action="Remove" asp-route-id="@student.StudentId"><i class="far fa-plus-square"></i> удалить</a>
+                    if (!student.Equals(item.Students.Last()))
+                    {
+                        <br/>
+                    }
+                }
+                @* // { *@
+                @* //     var sb = new StringBuilder(); *@
+                @* //     foreach (var student in item.Students) *@
+                @* //     { *@
+                @* //         sb.Append(student); *@
+                @* //         sb.Append(student == item.Students.Last() ? '\n' : ""); *@
+                @* //     } *@
+                @* //     return sb.ToString(); *@
+                @* // } *@
+                @* ) *@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Students.Count)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
